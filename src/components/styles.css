@@ -4,6 +4,8 @@
 	grid-template-rows: repeat(3, 1fr);
 	height: 15rem;
 	width: 15rem;
+	margin-inline: auto;
+	margin-top: 1rem;
 }
 
 .grid-button {
