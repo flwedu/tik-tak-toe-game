@@ -1,5 +1,5 @@
 import { startGame } from "./functions/startGame";
-import "./style.css";
+import "./global.css";
 import "./components/styles.css";
 
 startGame(document.querySelector<HTMLDivElement>("#grid"));
