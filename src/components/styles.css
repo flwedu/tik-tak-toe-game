@@ -9,8 +9,55 @@
 }
 
 .grid-button {
-	border: solid 1px gray;
+	border: solid 1px var(--color-primary-dark);
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+form {
+	border-radius: 0.5rem;
+	border: solid 1px var(--color-primary);
+	padding: 0.75rem;
+	display: flex;
+	gap: 1rem;
+	flex-direction: column;
+	position: relative;
+}
+
+form label {
+	display: block;
+	font-weight: bold;
+}
+
+.players-fields {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(1, 1fr);
+	gap: 1rem;
+}
+
+.player-field {
+	border: solid 1px var(--color-outline);
+	padding: 0.5rem;
+	border-radius: 0.25rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.player-field.active {
+	border: solid 2px var(--color-primary);
+}
+
+.player-field button {
+	width: 1rem;
+	background: none;
+	border: none;
+	display: inline-flex;
+	justify-content: center;
+}
+
+.player-field input:focus {
+	outline: solid 1px var(--color-primary-dark);
 }

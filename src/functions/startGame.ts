@@ -9,7 +9,6 @@ export function startGame(
 ) {
 	if (!gridHtmlDiv || !formHtmlElement) return;
 
-	formHtmlElement.classList.add("disabled");
 	gridHtmlDiv.classList.remove("disabled");
 	renderGrid(gridHtmlDiv, gameController);
 	initClickListeners(gridHtmlDiv, gameController, renderGrid);

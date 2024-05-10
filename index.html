@@ -10,15 +10,20 @@
 <div id="app">
 	<h1>TikTakToe Game</h1>
 	<form name="players-customizer">
-		<div class="player-customizer-fields">
-			<label>Player 1 Icon
-				<input value="❤️" maxlength="1" required name="player1Icon" />
-			</label>
+		<div class="players-fields">
+			<div class="player-field">
+				<label>Player 1
+					<button class="player-field-btn" data-player="1"></button>
+				</label>
+			</div>
+			<div class="player-field">
+				<label>Player 2
+					<button class="player-field-btn" data-player="2"></button>
+				</label>
+			</div>
 		</div>
-		<div class="player-customizer-fields">
-			<label>Player 2 Icon
-				<input value="😀" maxlength="1" required name="player2Icon" />
-			</label>
+		<div class="tooltip" role="tooltip" data-player="1">
+			<emoji-picker></emoji-picker>
 		</div>
 		<button type="submit">Start</button>
 	</form>
