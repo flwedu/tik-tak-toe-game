@@ -3,7 +3,7 @@ import type { GameController } from "../control/GameController";
 import { renderGridButton } from "./gridButton";
 
 export function renderGrid(
-	gridHtmlDiv: HTMLDivElement,
+	gridHtmlDiv: HTMLElement,
 	gameController: GameController,
 ) {
 	const content = range(0, 9)

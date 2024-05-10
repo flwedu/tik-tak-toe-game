@@ -1,17 +1,11 @@
 import { renderGrid } from "../components/grid";
-import { GameController } from "../control/GameController";
+import type { GameController } from "../control/GameController";
 import { initClickListeners } from "./initClickListeners";
 
-const gameController = new GameController({
-	player1: {
-		content: "❤️",
-	},
-	player2: {
-		content: "✅",
-	},
-});
-
-export function startGame(gridHtmlDiv: HTMLDivElement | null) {
+export function startGame(
+	gridHtmlDiv: HTMLElement | null,
+	gameController: GameController,
+) {
 	if (!gridHtmlDiv) return;
 
 	renderGrid(gridHtmlDiv, gameController);
