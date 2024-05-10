@@ -14,7 +14,7 @@ This is a simple Tic-Tac-Toe game implemented as a web application. Players can 
 
 - [x] **Custom icon**: Players can customize their icons.
 - [ ] **Restart**: Players can restart the game at any time to start a new match.
-- [ ] **Current Player Indicator**: During the game, it shows which player should play the next piece.
+- [x] **Current Player Indicator**: During the game, it shows which player should play the next piece.
 - [ ] **Winner Indication**: When the game ends, a message indicates which player won or if the game ended in a draw.
 - [ ] **AI**: Play against the computer.
 

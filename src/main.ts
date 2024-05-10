@@ -1,5 +1,8 @@
 import { renderGrid } from "./components/grid.ts";
-import { GameController } from "./control/GameController.ts";
+import {
+	GameController,
+	type GameEventDetailsType,
+} from "./control/GameController.ts";
 import { endGame } from "./functions/endGame.ts";
 import { startGame } from "./functions/startGame";
 import "./global.css";
@@ -40,14 +43,17 @@ form?.addEventListener("click", (e) => {
 form?.addEventListener("submit", (e) => {
 	e.preventDefault();
 
-	const gameController = new GameController({
-		player1: {
-			content: playersContentState["1"],
+	const gameController = new GameController(
+		{
+			player1: {
+				content: playersContentState["1"],
+			},
+			player2: {
+				content: playersContentState["2"],
+			},
 		},
-		player2: {
-			content: playersContentState["2"],
-		},
-	});
+		gridHtmlDiv,
+	);
 
 	startGame(gridHtmlDiv, form, gameController);
 });
@@ -66,4 +72,21 @@ emojiPicker?.addEventListener("emoji-click", (event) => {
 		return;
 	}
 	btn.textContent = unicode;
+});
+
+gridHtmlDiv?.addEventListener("switch-player", (e) => {
+	const detail = e.detail as GameEventDetailsType;
+	const btnPlayer1 = document.querySelector<HTMLButtonElement>(
+		`.player-field[data-player="1"]`,
+	);
+	const btnPlayer2 = document.querySelector<HTMLButtonElement>(
+		`.player-field[data-player="2"]`,
+	);
+	if (detail.player1Turn) {
+		btnPlayer1?.classList.add("active");
+		btnPlayer2?.classList.remove("active");
+		return;
+	}
+	btnPlayer2?.classList.add("active");
+	btnPlayer1?.classList.remove("active");
 });
