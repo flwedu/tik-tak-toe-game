@@ -17,12 +17,10 @@ form?.addEventListener("submit", (e) => {
 
 	const gameController = new GameController({
 		player1: {
-			content: formData.get("player1Icon"),
-			bgColor: formData.get("player1Color"),
+			content: formData.get("player1Icon") as string,
 		},
 		player2: {
-			content: formData.get("player2Icon"),
-			bgColor: formData.get("player2Color"),
+			content: formData.get("player2Icon") as string,
 		},
 	});
 
