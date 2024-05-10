@@ -1,3 +1,4 @@
+import { GRID_BUTTON_CLASS_NAME } from "../components/gridButton";
 import type { GameController } from "../control/GameController";
 
 export function initClickListeners(
@@ -10,7 +11,7 @@ export function initClickListeners(
 ) {
 	gridHtmlDiv.addEventListener("click", (e) => {
 		const target = e.target as HTMLDivElement;
-		if (!target.classList.contains("grid-button")) return;
+		if (!target.classList.contains(GRID_BUTTON_CLASS_NAME)) return;
 
 		const value = target.dataset.value;
 		gameController.registerMove(value);
