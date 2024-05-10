@@ -1,14 +1,5 @@
+import type { GameCustomData, PlayersGameData } from "../interfaces/game.ts";
 import type { PlayerCustomData } from "../interfaces/player";
-
-interface PlayersGameData {
-	player1: Set<number>;
-	player2: Set<number>;
-}
-
-interface GameCustomData {
-	player1: PlayerCustomData;
-	player2: PlayerCustomData;
-}
 
 export class GameController {
 	private data: PlayersGameData;
