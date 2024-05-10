@@ -4,10 +4,13 @@ import { initClickListeners } from "./initClickListeners";
 
 export function startGame(
 	gridHtmlDiv: HTMLElement | null,
+	formHtmlElement: HTMLElement | null,
 	gameController: GameController,
 ) {
-	if (!gridHtmlDiv) return;
+	if (!gridHtmlDiv || !formHtmlElement) return;
 
+	formHtmlElement.classList.add("disabled");
+	gridHtmlDiv.classList.remove("disabled");
 	renderGrid(gridHtmlDiv, gameController);
 	initClickListeners(gridHtmlDiv, gameController, renderGrid);
 }
