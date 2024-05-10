@@ -60,12 +60,15 @@ export class GameController {
 		const isFromPlayer1 = this.data.player1.has(value);
 		const isFromPlayer2 = this.data.player2.has(value);
 
-		if(isFromPlayer1){
+		if (isFromPlayer1) {
 			return this.customData.player1;
 		}
-		if(isFromPlayer2){
+		if (isFromPlayer2) {
 			return this.customData.player2;
 		}
-		return { bgColor: undefined, content: "" }
+		return {
+			bgColor: undefined,
+			content: "",
+		};
 	}
 }

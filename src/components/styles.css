@@ -1,14 +1,14 @@
 #grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    height: 15rem;
-    width: 15rem;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(3, 1fr);
+	height: 15rem;
+	width: 15rem;
 }
 
 .grid-button {
-    border: solid 1px gray;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	border: solid 1px gray;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
