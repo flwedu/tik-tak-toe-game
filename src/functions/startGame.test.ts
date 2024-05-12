@@ -1,19 +1,11 @@
-import { beforeEach, describe, expect, it } from "vitest";
-import { GameController } from "../control/GameController.ts";
+import { describe, expect, it } from "vitest";
+import { getMockGameController } from "../__test__/utils.ts";
 import { startGame } from "./startGame";
 
-const htmlTemplate = `<form id="form"></form><div id="grid" class="disabled"></div>`;
 describe("startGame function", () => {
-	beforeEach(() => {
-		document.body.innerHTML = htmlTemplate;
-	});
-
 	it("should not proceed if gridHtmlDiv and formHtmlElement are null", () => {
 		const gridHtmlDiv = document.getElementById("grid");
-		const gameController = new GameController({
-			player1: { bgColor: "red", content: "p1" },
-			player2: { bgColor: "blue", content: "p2" },
-		});
+		const gameController = getMockGameController();
 
 		startGame(null, null, gameController);
 
@@ -28,13 +20,9 @@ describe("startGame function", () => {
 		() => {
 			const gridHtmlDiv = document.getElementById("grid");
 			const formHtmlElement = document.getElementById("form");
-			const gameController = new GameController(
-				{
-					player1: { bgColor: "red", content: "p1" },
-					player2: { bgColor: "blue", content: "p2" },
-				},
-				gridHtmlDiv,
-			);
+			const gameController = getMockGameController({
+				gridDivHtml: gridHtmlDiv,
+			});
 
 			startGame(gridHtmlDiv, formHtmlElement, gameController);
 
