@@ -1,12 +1,11 @@
 import { renderGrid } from "./components/grid.ts";
-import {
-	GameController,
-	type GameEventDetailsType,
-} from "./control/GameController.ts";
+import { EventEmitter } from "./control/EventEmitter.ts";
+import { GameController } from "./control/GameController.ts";
 import { UiController } from "./control/UiController.ts";
 import "./global.css";
 import "./components/styles.css";
 import "emoji-picker-element";
+import type { GameEventsType } from "./interfaces/events.ts";
 
 const playersContentState: Record<string, string> = {
 	"1": "❤",
@@ -18,6 +17,7 @@ const emojiPicker = document.querySelector("emoji-picker");
 const tooltip = document.querySelector<HTMLDivElement>(".tooltip");
 const allPlayerFieldButtons =
 	document.querySelectorAll<HTMLButtonElement>(".player-field-btn");
+const eventEmitter = new EventEmitter<GameEventsType>();
 
 renderGrid(gridDivRef);
 
@@ -50,7 +50,7 @@ formRef?.addEventListener("submit", (e) => {
 				content: playersContentState["2"],
 			},
 		},
-		gridDivRef,
+		eventEmitter,
 	);
 
 	const uiControler = new UiController({
@@ -78,15 +78,14 @@ emojiPicker?.addEventListener("emoji-click", (event) => {
 	btn.textContent = unicode;
 });
 
-gridDivRef?.addEventListener("switch-player", (e) => {
-	const detail = e.detail as GameEventDetailsType;
+eventEmitter.on("switch-turn", (data) => {
 	const btnPlayer1 = document.querySelector<HTMLButtonElement>(
 		`.player-field[data-player="1"]`,
 	);
 	const btnPlayer2 = document.querySelector<HTMLButtonElement>(
 		`.player-field[data-player="2"]`,
 	);
-	if (detail.player1Turn) {
+	if (data.player1Turn) {
 		btnPlayer1?.classList.add("active");
 		btnPlayer2?.classList.remove("active");
 		return;

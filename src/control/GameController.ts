@@ -1,5 +1,7 @@
+import type { GameEventsType } from "../interfaces/events.ts";
 import type { GameCustomData, PlayersGameData } from "../interfaces/game.ts";
 import type { PlayerCustomData } from "../interfaces/player";
+import type { EventEmitter } from "./EventEmitter.ts";
 
 export interface GameEventDetailsType {
 	data: PlayersGameData;
@@ -14,7 +16,7 @@ export class GameController {
 
 	public constructor(
 		private customData: GameCustomData,
-		private gridHtmlDiv?: HTMLElement | null,
+		private eventEmitter: EventEmitter<GameEventsType>,
 	) {
 		this.data = {
 			player1: new Set(),
@@ -36,16 +38,9 @@ export class GameController {
 	switchTurn() {
 		this.player1Turn = !this.player1Turn;
 
-		const customEvent = new CustomEvent<GameEventDetailsType>("switch-player", {
-			detail: {
-				data: this.data,
-				player1Turn: this.player1Turn,
-				history: this.history,
-			},
-			bubbles: true,
+		this.eventEmitter.emit("switch-turn", {
+			player1Turn: this.player1Turn,
 		});
-
-		this.gridHtmlDiv?.dispatchEvent(customEvent);
 	}
 
 	registerMove(value: number | string | undefined) {

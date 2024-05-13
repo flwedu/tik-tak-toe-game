@@ -2,13 +2,17 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it, test, vi } from "vitest";
 import { getMockGameController } from "../__test__/utils.ts";
 import { GRID_BUTTON_CLASS_NAME } from "../components/gridButton.ts";
+import type { GameEventsType } from "../interfaces/events.ts";
+import { EventEmitter } from "./EventEmitter.ts";
 import { UiController } from "./UiController.ts";
+
+const eventEmitter = new EventEmitter<GameEventsType>();
 
 describe("UiController tests", () => {
 	describe("startGame function", () => {
 		it("should not proceed if gridHtmlDiv and formHtmlElement are null", () => {
 			const gridDivRef = document.getElementById("grid");
-			const gameController = getMockGameController();
+			const gameController = getMockGameController(eventEmitter);
 			const uiController = new UiController({
 				gameController,
 				formRef: null,
@@ -28,9 +32,7 @@ describe("UiController tests", () => {
 			() => {
 				const gridDivRef = document.getElementById("grid");
 				const formRef = document.getElementById("form");
-				const gameController = getMockGameController({
-					gridDivHtml: gridDivRef,
-				});
+				const gameController = getMockGameController(eventEmitter);
 				const uiController = new UiController({
 					gameController,
 					formRef,
@@ -51,9 +53,7 @@ describe("UiController tests", () => {
 			const user = userEvent.setup();
 			const gridDivRef = document.getElementById("grid");
 			const formRef = document.getElementById("form");
-			const gameController = getMockGameController({
-				gridDivHtml: gridDivRef,
-			});
+			const gameController = getMockGameController(eventEmitter);
 			const renderCallback = vi.fn();
 
 			if (!gridDivRef) {
