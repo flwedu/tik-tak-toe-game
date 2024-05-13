@@ -3,8 +3,7 @@ import {
 	GameController,
 	type GameEventDetailsType,
 } from "./control/GameController.ts";
-import { endGame } from "./functions/endGame.ts";
-import { startGame } from "./functions/startGame";
+import { UiController } from "./control/UiController.ts";
 import "./global.css";
 import "./components/styles.css";
 import "emoji-picker-element";
@@ -13,15 +12,14 @@ const playersContentState: Record<string, string> = {
 	"1": "❤",
 	"2": "??",
 };
-const form = document.forms.namedItem("players-customizer");
-const gridHtmlDiv = document.getElementById("grid");
+const formRef = document.forms.namedItem("players-customizer");
+const gridDivRef = document.getElementById("grid");
 const emojiPicker = document.querySelector("emoji-picker");
 const tooltip = document.querySelector<HTMLDivElement>(".tooltip");
 const allPlayerFieldButtons =
 	document.querySelectorAll<HTMLButtonElement>(".player-field-btn");
 
-endGame(gridHtmlDiv, form);
-renderGrid(gridHtmlDiv);
+renderGrid(gridDivRef);
 
 // Initialize text content for btns
 for (const btn of allPlayerFieldButtons) {
@@ -29,7 +27,7 @@ for (const btn of allPlayerFieldButtons) {
 	btn.textContent = playersContentState[playerNumber];
 }
 
-form?.addEventListener("click", (e) => {
+formRef?.addEventListener("click", (e) => {
 	const target = e.target as HTMLButtonElement | null;
 	if (!target || !target.classList.contains("player-field-btn")) {
 		return;
@@ -40,7 +38,7 @@ form?.addEventListener("click", (e) => {
 	tooltip?.setAttribute("data-player", playerNumber);
 });
 
-form?.addEventListener("submit", (e) => {
+formRef?.addEventListener("submit", (e) => {
 	e.preventDefault();
 
 	const gameController = new GameController(
@@ -52,10 +50,16 @@ form?.addEventListener("submit", (e) => {
 				content: playersContentState["2"],
 			},
 		},
-		gridHtmlDiv,
+		gridDivRef,
 	);
 
-	startGame(gridHtmlDiv, form, gameController);
+	const uiControler = new UiController({
+		gameController,
+		formRef,
+		gridDivRef,
+	});
+
+	uiControler.startGame();
 });
 
 emojiPicker?.addEventListener("emoji-click", (event) => {
@@ -74,7 +78,7 @@ emojiPicker?.addEventListener("emoji-click", (event) => {
 	btn.textContent = unicode;
 });
 
-gridHtmlDiv?.addEventListener("switch-player", (e) => {
+gridDivRef?.addEventListener("switch-player", (e) => {
 	const detail = e.detail as GameEventDetailsType;
 	const btnPlayer1 = document.querySelector<HTMLButtonElement>(
 		`.player-field[data-player="1"]`,

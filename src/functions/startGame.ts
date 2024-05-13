@@ -2,14 +2,25 @@ import { renderGrid } from "../components/grid";
 import type { GameController } from "../control/GameController";
 import { initClickListeners } from "./initClickListeners";
 
-export function startGame(
-	gridHtmlDiv: HTMLElement | null,
-	formHtmlElement: HTMLElement | null,
-	gameController: GameController,
-) {
-	if (!gridHtmlDiv || !formHtmlElement) return;
+interface StartGameParams {
+	gridDivRef: HTMLElement | null;
+	formRef: HTMLElement | null;
+	gameController: GameController;
+}
 
-	gridHtmlDiv.classList.remove("disabled");
-	renderGrid(gridHtmlDiv, gameController);
-	initClickListeners(gridHtmlDiv, gameController, renderGrid);
+export function startGame({
+	gridDivRef,
+	gameController,
+	formRef,
+}: StartGameParams) {
+	if (!gridDivRef || !formRef) return;
+
+	gridDivRef.classList.remove("disabled");
+	renderGrid(gridDivRef, gameController);
+
+	initClickListeners({
+		gridDivRef,
+		gameController,
+		renderCallback: renderGrid,
+	});
 }
